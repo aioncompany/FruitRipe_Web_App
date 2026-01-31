@@ -1,5 +1,0 @@
-{
-  "name": "FruitRipe IoT Dashboard",
-  "description": "Industrial monitoring system for fruit ripening chambers with real-time sensor data, alerts, and device management.",
-  "requestFramePermissions": []
-}
