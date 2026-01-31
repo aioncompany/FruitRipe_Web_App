@@ -43,6 +43,9 @@ const ResetPassword: React.FC = () => {
       setRequestMessage('If the email exists, you will receive a reset link shortly.');
       setToken('');
       setStep('request');
+      if (window.location.hash !== '#/reset') {
+        window.location.hash = '#/reset';
+      }
     } catch (err) {
       setRequestStatus('error');
       setRequestMessage('Failed to request reset. Please try again.');
@@ -77,6 +80,8 @@ const ResetPassword: React.FC = () => {
       setResetMessage('Reset failed. Token may be invalid or expired.');
     }
   };
+
+  const canReset = step === 'reset' && token.length > 0;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-900 transition-colors duration-200 p-4">
@@ -125,10 +130,8 @@ const ResetPassword: React.FC = () => {
           </div>
         )}
 
-        {step === 'reset' && (
+        {canReset && (
           <form className="mt-6 space-y-4" onSubmit={handleResetPassword}>
-            <input type="hidden" value={token} readOnly />
-
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 ml-1">
                 New Password
@@ -179,7 +182,7 @@ const ResetPassword: React.FC = () => {
           </div>
         )}
 
-        {step === 'reset' && (
+        {canReset && (
           <div className="mt-6 text-center">
             <button
               onClick={() => setStep('request')}
